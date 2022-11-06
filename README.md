@@ -21,4 +21,4 @@
 - [ox_lib](https://github.com/overextended/ox_lib) (Required)
 
 ###### Preview
-![Preview Video](https://www.youtube.com/watch?v=K5mZ8UYVDkk)
+[Preview Video](https://www.youtube.com/watch?v=K5mZ8UYVDkk)
