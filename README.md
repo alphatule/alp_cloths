@@ -20,5 +20,5 @@
 - [qr-cloths](https://github.com/QRCore-RedM-Re/qr-clothes) (Required)
 - [ox_lib](https://github.com/overextended/ox_lib) (Required)
 
-<!-- ###### Preview
-![Preview Video](https://youtu.be/QorWnjfdj7I) -->
+###### Preview
+![Preview Video](https://www.youtube.com/watch?v=K5mZ8UYVDkk)
