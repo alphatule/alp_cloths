@@ -108,24 +108,6 @@ local isClothRemoved = {
     ["vests"] = 0,
 }
 
--- RegisterCommand('clothsalp2', function(src, args)
---     if args[1] then
---         for k,v in pairs(savedPedClothes) do
---             if args[1] == k then
---                 if isClothRemoved[k] == 0 then
---                     Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), tonumber(categoryHashes[k]), false)
---                     Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), false, true, true, true, false)
-
---                     isClothRemoved[k] = 1
---                 elseif isClothRemoved[k] == 1 then
---                     NativeSetPedComponentEnabled(PlayerPedId(), savedPedClothes[k], true, true)
---                     isClothRemoved[k] = 0
---                 end
---             end
---         end
---     end
--- end)
-
 RegisterNetEvent('qr_clothes:ApplyClothes')
 AddEventHandler('qr_clothes:ApplyClothes', function(ClothesComponents, Target)
     Citizen.CreateThread(function()
@@ -164,7 +146,7 @@ AddEventHandler('qr_clothes:ApplyClothes', function(ClothesComponents, Target)
     end)
 end)
 
-
+-- Functions
 function NativeSetPedComponentEnabled(ped, componentHash, immediately, isMp)
     -- Set Variation
     Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, tonumber(componentHash), immediately, isMp, true)
@@ -177,7 +159,7 @@ function NativeSetPedComponentEnabled(ped, componentHash, immediately, isMp)
     end
 end
 
--- Creación del menú
+-- Menu Creation
 Citizen.CreateThread(function()
     lib.registerMenu({
         id = 'alp_cloths_menu',
