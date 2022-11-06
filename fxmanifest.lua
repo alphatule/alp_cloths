@@ -21,13 +21,12 @@ client_scripts {
 }
 
 escrow_ignore {
-    'locale/es.lua',
     'locale/en.lua',
     'config.lua',
 }
 
 
 dependencies {
-    'qr-clothes', -- Required
+    'qr-clothes', -- Required.
     'ox_lib', -- Required.
 }

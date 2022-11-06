@@ -108,43 +108,26 @@ local isClothRemoved = {
     ["vests"] = 0,
 }
 
-RegisterCommand('clothsalp2', function(src, args)
-    if args[1] then
-        print(args[1], savedPedClothes[args[1]])
-        for k,v in pairs(savedPedClothes) do
-            if args[1] == k then
-                if isClothRemoved[k] == 0 then
-                    Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), tonumber(categoryHashes[k]), false)
-                    Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), false, true, true, true, false)
+-- RegisterCommand('clothsalp2', function(src, args)
+--     if args[1] then
+--         for k,v in pairs(savedPedClothes) do
+--             if args[1] == k then
+--                 if isClothRemoved[k] == 0 then
+--                     Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), tonumber(categoryHashes[k]), false)
+--                     Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), false, true, true, true, false)
 
-                    isClothRemoved[k] = 1
-                elseif isClothRemoved[k] == 1 then
-                    NativeSetPedComponentEnabled(PlayerPedId(), savedPedClothes[k], true, true)
-                    isClothRemoved[k] = 0
-                end
-            end
-        end
-    end
-end)
-
-RegisterCommand('clothsalp3', function(src, args)
-    for k,v in pairs(savedPedClothes) do
-        NativeSetPedComponentEnabled(PlayerPedId(), savedPedClothes[k], true, true)
-        isClothRemoved[k] = 0
-    end
-end)
-
-RegisterCommand('clothsalp4', function(src, args)
-    for k,v in pairs(savedPedClothes) do
-        Citizen.InvokeNative(0xD710A5007C2AC539, PlayerPedId(), tonumber(categoryHashes[k]), false)
-        Citizen.InvokeNative(0xCC8CA3E88256E58F, PlayerPedId(), false, true, true, true, false)
-        isClothRemoved[k] = 1
-    end
-end)
+--                     isClothRemoved[k] = 1
+--                 elseif isClothRemoved[k] == 1 then
+--                     NativeSetPedComponentEnabled(PlayerPedId(), savedPedClothes[k], true, true)
+--                     isClothRemoved[k] = 0
+--                 end
+--             end
+--         end
+--     end
+-- end)
 
 RegisterNetEvent('qr_clothes:ApplyClothes')
 AddEventHandler('qr_clothes:ApplyClothes', function(ClothesComponents, Target)
-    print("Me llegan datos de un sitio bueno bueno")
     Citizen.CreateThread(function()
         local _Target = Target or PlayerPedId()
         if type(ClothesComponents) ~= "table" then
@@ -181,8 +164,8 @@ AddEventHandler('qr_clothes:ApplyClothes', function(ClothesComponents, Target)
     end)
 end)
 
+
 function NativeSetPedComponentEnabled(ped, componentHash, immediately, isMp)
-    print("NativeSetPedComponentEnabled", componentHash, immediately, isMp)
     -- Set Variation
     Citizen.InvokeNative(0xD3A7B003ED343FD9, ped, tonumber(componentHash), immediately, isMp, true)
     -- Update Variation
@@ -193,8 +176,6 @@ function NativeSetPedComponentEnabled(ped, componentHash, immediately, isMp)
         Wait(1)
     end
 end
-
-
 
 -- Creación del menú
 Citizen.CreateThread(function()
@@ -211,44 +192,43 @@ Citizen.CreateThread(function()
         onClose = function(keyPressed)
         end,
         options = {
-            {label = "Dress Full", description = 'It has a description!', close = false, args = { cloth = "dressFull"} },
-            {label = "Remove all cloths", description = 'It has a description!', close = false, args = { cloth = "removeCloths"} },
-            {label = "accessories", description = 'It has a description!', close = false, args = { cloth = "accessories"} },
-            {label = "armor", description = 'It has a description!', close = false, args = { cloth = "armor"} },
-            {label = "badges", description = 'It has a description!', close = false, args = { cloth = "badges"} },
-            {label = "belt_buckles", description = 'It has a description!', close = false, args = { cloth = "belt_buckles"} },
-            {label = "belts", description = 'It has a description!', close = false, args = { cloth = "belts"} },
-            {label = "boot_accessories", description = 'It has a description!', close = false, args = { cloth = "boot_accessories"} },
-            {label = "boots", description = 'It has a description!', close = false, args = { cloth = "boots"} },
-            {label = "chaps", description = 'It has a description!', close = false, args = { cloth = "chaps"} },
-            {label = "cloaks", description = 'It has a description!', close = false, args = { cloth = "cloaks"} },
-            {label = "coats", description = 'It has a description!', close = false, args = { cloth = "coats"} },
-            {label = "coats_closed", description = 'It has a description!', close = false, args = { cloth = "coats_closed"} },
-            {label = "dresses", description = 'It has a description!', close = false, args = { cloth = "dresses"} },
-            {label = "eyewear", description = 'It has a description!', close = false, args = { cloth = "eyewear"} },
-            {label = "gauntlets", description = 'It has a description!', close = false, args = { cloth = "gauntlets"} },
-            {label = "gloves", description = 'It has a description!', close = false, args = { cloth = "gloves"} },
-            {label = "gunbelt_accs", description = 'It has a description!', close = false, args = { cloth = "gunbelt_accs"} },
-            {label = "gunbelts", description = 'It has a description!', close = false, args = { cloth = "gunbelts"} },
-            {label = "hats", description = 'It has a description!', close = false, args = { cloth = "hats"} },
-            {label = "holsters_left", description = 'It has a description!', close = false, args = { cloth = "holsters_left"} },
-            {label = "jewelry_bracelets", description = 'It has a description!', close = false, args = { cloth = "jewelry_bracelets"} },
-            {label = "jewelry_rings_left", description = 'It has a description!', close = false, args = { cloth = "jewelry_rings_left"} },
-            {label = "jewelry_rings_right", description = 'It has a description!', close = false, args = { cloth = "jewelry_rings_right"} },
-            {label = "loadouts", description = 'It has a description!', close = false, args = { cloth = "loadouts"} },
-            {label = "masks", description = 'It has a description!', close = false, args = { cloth = "masks"} },
-            {label = "neckties", description = 'It has a description!', close = false, args = { cloth = "neckties"} },
-            {label = "neckwear", description = 'It has a description!', close = false, args = { cloth = "neckwear"} },
-            {label = "pants", description = 'It has a description!', close = false, args = { cloth = "pants"} },
-            {label = "ponchos", description = 'It has a description!', close = false, args = { cloth = "ponchos"} },
-            {label = "satchels", description = 'It has a description!', close = false, args = { cloth = "satchels"} },
-            {label = "shirts_full", description = 'It has a description!', close = false, args = { cloth = "shirts_full"} },
-            {label = "spats", description = 'It has a description!', close = false, args = { cloth = "spats"} },
-            {label = "suspenders", description = 'It has a description!', close = false, args = { cloth = "suspenders"} },
-            {label = "vests", description = 'It has a description!', close = false, args = { cloth = "vests"} },
+            {label = Lang:t("menu.dress_full"), close = false, args = { cloth = "dressFull"} },
+            {label = Lang:t("menu.remove_cloths"), close = false, args = { cloth = "removeCloths"} },
+            {label = Lang:t("menu.accessories"), close = false, args = { cloth = "accessories"} },
+            {label = Lang:t("menu.armor"), close = false, args = { cloth = "armor"} },
+            {label = Lang:t("menu.badges"), close = false, args = { cloth = "badges"} },
+            {label = Lang:t("menu.belt_buckles"), close = false, args = { cloth = "belt_buckles"} },
+            {label = Lang:t("menu.belts"), close = false, args = { cloth = "belts"} },
+            {label = Lang:t("menu.boot_accessories"), close = false, args = { cloth = "boot_accessories"} },
+            {label = Lang:t("menu.boots"), close = false, args = { cloth = "boots"} },
+            {label = Lang:t("menu.chaps"), close = false, args = { cloth = "chaps"} },
+            {label = Lang:t("menu.cloaks"), close = false, args = { cloth = "cloaks"} },
+            {label = Lang:t("menu.coats"), close = false, args = { cloth = "coats"} },
+            {label = Lang:t("menu.coats_closed"), close = false, args = { cloth = "coats_closed"} },
+            {label = Lang:t("menu.dresses"), close = false, args = { cloth = "dresses"} },
+            {label = Lang:t("menu.eyewear"), close = false, args = { cloth = "eyewear"} },
+            {label = Lang:t("menu.gauntlets"), close = false, args = { cloth = "gauntlets"} },
+            {label = Lang:t("menu.gloves"), close = false, args = { cloth = "gloves"} },
+            {label = Lang:t("menu.gunbelt_accs"), close = false, args = { cloth = "gunbelt_accs"} },
+            {label = Lang:t("menu.gunbelts"), close = false, args = { cloth = "gunbelts"} },
+            {label = Lang:t("menu.hats"), close = false, args = { cloth = "hats"} },
+            {label = Lang:t("menu.holsters_left"), close = false, args = { cloth = "holsters_left"} },
+            {label = Lang:t("menu.jewelry_bracelets"), close = false, args = { cloth = "jewelry_bracelets"} },
+            {label = Lang:t("menu.jewelry_rings_left"), close = false, args = { cloth = "jewelry_rings_left"} },
+            {label = Lang:t("menu.jewelry_rings_right"), close = false, args = { cloth = "jewelry_rings_right"} },
+            {label = Lang:t("menu.loadouts"), close = false, args = { cloth = "loadouts"} },
+            {label = Lang:t("menu.masks"), close = false, args = { cloth = "masks"} },
+            {label = Lang:t("menu.neckties"), close = false, args = { cloth = "neckties"} },
+            {label = Lang:t("menu.neckwear"), close = false, args = { cloth = "neckwear"} },
+            {label = Lang:t("menu.pants"), close = false, args = { cloth = "pants"} },
+            {label = Lang:t("menu.ponchos"), close = false, args = { cloth = "ponchos"} },
+            {label = Lang:t("menu.satchels"), close = false, args = { cloth = "satchels"} },
+            {label = Lang:t("menu.shirts_full"), close = false, args = { cloth = "shirts_full"} },
+            {label = Lang:t("menu.spats"), close = false, args = { cloth = "spats"} },
+            {label = Lang:t("menu.suspenders"), close = false, args = { cloth = "suspenders"} },
+            {label = Lang:t("menu.vests"), close = false, args = { cloth = "vests"} },
         }
     }, function(selected, scrollIndex, args)
-        print(selected, scrollIndex, json.encode(args))
         
         if args.cloth == "dressFull" then
             for k,v in pairs(savedPedClothes) do
@@ -280,6 +260,12 @@ Citizen.CreateThread(function()
     end)
 end)
 
-RegisterCommand('clothsalp6', function()
+RegisterNetEvent("alp_cloths:OpenMenu", function()
     lib.showMenu('alp_cloths_menu')
 end)
+
+if Config.CommandEnabled then
+    RegisterCommand(Config.Command, function()
+        TriggerEvent("alp_cloths:OpenMenu")
+    end)
+end
